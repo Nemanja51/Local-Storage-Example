@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data access assignment - Quiz</title>
+    <style>
+        h2{
+            background-color: antiquewhite;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <form name="myForm" id="myForm">
+
+    </form>
+    
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+  crossorigin="anonymous"></script>
+    </script>
+    <script>
+
+        let quiz = {
+        "q1": {
+            "question": "Which one is correct team name in NBA?",
+            "options": [
+                "New York Bulls",
+                "Los Angeles Kings",
+                "Golden State Warriros",
+                "Huston Rocket"
+            ],
+            "answer": "Huston Rocket"
+        },
+        "q2": {
+            "question": "'Namaste' is a traditional greeting in which Asian language?",
+            "options": [
+                "Hindi",
+                "Mandarin",
+                "Nepalese",
+                "Thai"
+            ],
+            "answer": "Hindi"
+        },
+        "q3": {
+            "question": "The Spree river flows through which major European capital city?",
+            "options": [
+                "Berlin",
+                "Paris",
+                "Rome",
+                "London"
+            ],
+            "answer": "Berlin"
+        },
+        "q4": {
+            "question": "Which famous artist had both a 'Rose Period' and a 'Blue Period'?",
+            "options": [
+                "Pablo Picasso",
+                "Vincent van Gogh",
+                "Salvador Dalí",
+                "Edgar Degas"
+            ],
+            "answer": "Pablo Picasso"
+        }
+        };
+
+        var obj = JSON.parse(JSON.stringify(quiz));  
+
+        function saveToLs(q, option){
+            localStorage.setItem(q, option)
+        }
+                   
+        for (item in obj) {
+            
+            var ls = localStorage.getItem(item);
+
+            if(ls==null){
+
+                document.getElementById('myForm').innerHTML += '<h2>' + obj[item].question + '</h2>'
+
+                obj[item].options.forEach(option => {
+                
+                    document.getElementById('myForm').innerHTML += '<li style="list-style:none;">' + `<input type="radio" name="`+item+`"  onchange="saveToLs(\``+item+`\`, \``+option+`\`)"/>` + option +'</li>'
+                            
+                }); 
+
+            }
+            else{
+
+                document.getElementById('myForm').innerHTML += '<h2>' + obj[item].question + '</h2>'
+
+                obj[item].options.forEach(option => {
+
+                    if(option == ls){
+                        document.getElementById('myForm').innerHTML += '<li style="list-style:none;">' + `<input type="radio" name="`+item+`"  onchange="saveToLs(\``+item+`\`, \``+option+`\`)" checked />` + option +'</li>'
+                        return;
+                    }
+                
+                    document.getElementById('myForm').innerHTML += '<li style="list-style:none;">' + `<input type="radio" name="`+item+`"  onchange="saveToLs(\``+item+`\`, \``+option+`\`)"/>` + option +'</li>'
+                            
+                }); 
+                
+            }
+             
+        }
+
+    </script>
+    
+</body>
+</html>
